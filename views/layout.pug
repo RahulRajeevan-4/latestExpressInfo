@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      header
+        h1 Course Tracker
+      .main-content
+        nav.sidebar
+          ul
+            li
+              a(href='/catalog') Home
+            li
+              a(href='/catalog/students') Students
+            li
+              a(href='/catalog/courses') Courses
+            li
+              a(href='/catalog/enrollments') Enrollments
+            li.separator
+            li
+              a(href='/catalog/student/create') + Create Student
+            li
+              a(href='/catalog/course/create') + Create Course
+            li
+              a(href='/catalog/enrollment/create') + Create Enrollment
+        .content
+          block content

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+
+  p Are you sure you want to delete this enrollment?
+
+  .detail-card
+    .detail-row
+      strong Student:
+      span: a(href='/catalog/student/' + enrollment.student._id)= enrollment.student.name
+    .detail-row
+      strong Course:
+      span: a(href='/catalog/course/' + enrollment.course._id)= enrollment.course.title
+    .detail-row
+      strong Status:
+      span= enrollment.status
+
+  form(method='POST' action='')
+    input(type='hidden' name='enrollmentid' value=enrollment._id)
+    .form-actions
+      button.btn.btn-danger(type='submit') Delete Enrollment
+      a.btn(href=enrollment.url) Cancel

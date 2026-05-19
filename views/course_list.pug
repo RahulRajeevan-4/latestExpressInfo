@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  .actions
+    a.btn.btn-primary(href='/catalog/course/create') Create New Course
+  if course_list.length
+    table.data-table
+      thead
+        tr
+          th Title
+          th Level
+          th Duration
+          th Actions
+      tbody
+        each course in course_list
+          tr
+            td: a(href=course.url)= course.title
+            td(class='level-' + course.level.toLowerCase())= course.level
+            td= course.duration_weeks + ' weeks'
+            td
+              a.btn-action(href=course.url) View
+              a.btn-action(href=course.url + '/update') Edit
+              a.btn-action.delete(href=course.url + '/delete') Delete
+  else
+    p No courses found.

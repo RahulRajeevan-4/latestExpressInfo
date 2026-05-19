@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+  .actions
+    a.btn.btn-primary(href='/catalog/enrollment/create') Create New Enrollment
+  if enrollment_list.length
+    table.data-table
+      thead
+        tr
+          th Student
+          th Course
+          th Status
+          th Date
+          th Actions
+      tbody
+        each enrollment in enrollment_list
+          tr
+            td: a(href='/catalog/student/' + enrollment.student._id)= enrollment.student.name
+            td: a(href='/catalog/course/' + enrollment.course._id)= enrollment.course.title
+            td(class='status-' + enrollment.status.toLowerCase())= enrollment.status
+            td= enrollment.enrollment_date.toISOString().split('T')[0]
+            td
+              a.btn-action(href=enrollment.url) View
+              a.btn-action(href=enrollment.url + '/update') Edit
+              a.btn-action.delete(href=enrollment.url + '/delete') Delete
+  else
+    p No enrollments found.

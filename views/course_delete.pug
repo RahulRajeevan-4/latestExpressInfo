@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1= title
+
+  p Are you sure you want to delete this course?
+
+  .detail-card
+    .detail-row
+      strong Title:
+      span= course.title
+    .detail-row
+      strong Level:
+      span= course.level
+    .detail-row
+      strong Duration:
+      span= course.duration_weeks + ' weeks'
+
+  if enrollments.length
+    .error-message
+      p Cannot delete this course because it has #{enrollments.length} enrollment(s):
+      ul
+        each enrollment in enrollments
+          li: a(href='/catalog/student/' + enrollment.student._id)= enrollment.student.name
+
+  if !enrollments.length
+    form(method='POST' action='')
+      input(type='hidden' name='courseid' value=course._id)
+      .form-actions
+        button.btn.btn-danger(type='submit') Delete Course
+        a.btn(href=course.url) Cancel
+  else
+    .form-actions
+      a.btn(href='/catalog/courses') Back to Courses

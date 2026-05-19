@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  .actions
+    a.btn.btn-primary(href='/catalog/student/create') Create New Student
+  if student_list.length
+    table.data-table
+      thead
+        tr
+          th Name
+          th Email
+          th Actions
+      tbody
+        each student in student_list
+          tr
+            td: a(href=student.url)= student.name
+            td= student.email
+            td
+              a.btn-action(href=student.url) View
+              a.btn-action(href=student.url + '/update') Edit
+              a.btn-action.delete(href=student.url + '/delete') Delete
+  else
+    p No students found.

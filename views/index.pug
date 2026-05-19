@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h2 Dashboard
+  .dashboard-stats
+    .stat-card
+      h3 Students
+      .stat-value= student_count
+    .stat-card
+      h3 Courses
+      .stat-value= course_count
+    .stat-card
+      h3 Total Enrollments
+      .stat-value= enrollment_count
+    .stat-card
+      h3 Active
+      .stat-value.active= active_count
+    .stat-card
+      h3 Completed
+      .stat-value.completed= completed_count
+    .stat-card
+      h3 Dropped
+      .stat-value.dropped= dropped_count

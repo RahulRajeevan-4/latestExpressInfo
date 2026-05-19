@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1= title
+  .detail-card
+    .detail-row
+      strong Title:
+      span= course.title
+    .detail-row
+      strong Level:
+      span(class='level-' + course.level.toLowerCase())= course.level
+    .detail-row
+      strong Duration:
+      span= course.duration_weeks + ' weeks'
+    .detail-row
+      strong Description:
+      .description= course.description
+  .actions
+    a.btn.btn-primary(href=course.url + '/update') Edit Course
+    a.btn.btn-danger(href=course.url + '/delete') Delete Course
+
+  h2 Enrollments
+  if enrollments.length
+    table.data-table
+      thead
+        tr
+          th Student
+          th Status
+          th Enrollment Date
+          th Actions
+      tbody
+        each enrollment in enrollments
+          tr
+            td: a(href='/catalog/student/' + enrollment.student._id)= enrollment.student.name
+            td(class='status-' + enrollment.status.toLowerCase())= enrollment.status
+            td= enrollment.enrollment_date.toISOString().split('T')[0]
+            td
+              a.btn-action(href= '/catalog/enrollment/' + enrollment._id) View
+              a.btn-action(href= '/catalog/enrollment/' + enrollment._id + '/update') Edit
+              a.btn-action.delete(href= '/catalog/enrollment/' + enrollment._id + '/delete') Delete
+  else
+    p No enrollments found for this course.

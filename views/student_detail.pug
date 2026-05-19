@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  .detail-card
+    .detail-row
+      strong Name:
+      span= student.name
+    .detail-row
+      strong Email:
+      span= student.email
+    if student.date_of_birth
+      .detail-row
+        strong Date of Birth:
+        span= student.date_of_birth.toISOString().split('T')[0]
+  .actions
+    a.btn.btn-primary(href=student.url + '/update') Edit Student
+    a.btn.btn-danger(href=student.url + '/delete') Delete Student
+
+  h2 Enrollments
+  if enrollments.length
+    table.data-table
+      thead
+        tr
+          th Course
+          th Status
+          th Enrollment Date
+          th Actions
+      tbody
+        each enrollment in enrollments
+          tr
+            td: a(href='/catalog/course/' + enrollment.course._id)= enrollment.course.title
+            td(class='status-' + enrollment.status.toLowerCase())= enrollment.status
+            td= enrollment.enrollment_date.toISOString().split('T')[0]
+            td
+              a.btn-action(href= '/catalog/enrollment/' + enrollment._id) View
+              a.btn-action(href= '/catalog/enrollment/' + enrollment._id + '/update') Edit
+              a.btn-action.delete(href= '/catalog/enrollment/' + enrollment._id + '/delete') Delete
+  else
+    p No enrollments found for this student.

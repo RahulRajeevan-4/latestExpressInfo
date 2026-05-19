@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+
+  if errors
+    .error-message
+      ul
+        each error in errors
+          li= error.msg
+
+  form(method='POST' action='')
+    .form-group
+      label(for='student') Student:
+      select#student(name='student' required)
+        option(value='') -- Select Student --
+        each student in students
+          option(value=student._id selected=enrollment && enrollment.student._id.toString() === student._id.toString())= student.name
+
+    .form-group
+      label(for='course') Course:
+      select#course(name='course' required)
+        option(value='') -- Select Course --
+        each course in courses
+          option(value=course._id selected=enrollment && enrollment.course._id.toString() === course._id.toString())= course.title
+
+    .form-group
+      label(for='status') Status:
+      select#status(name='status' required)
+        option(value='Active' selected=!enrollment || enrollment.status === 'Active') Active
+        option(value='Completed' selected=enrollment && enrollment.status === 'Completed') Completed
+        option(value='Dropped' selected=enrollment && enrollment.status === 'Dropped') Dropped
+
+    .form-group
+      label(for='enrollment_date') Enrollment Date:
+      input#enrollment_date(type='date' name='enrollment_date'
+        value=enrollment && enrollment.enrollment_date ? enrollment.enrollment_date.toISOString().split('T')[0] : '')
+
+    .form-actions
+      button.btn.btn-primary(type='submit')= enrollment && enrollment._id ? 'Update' : 'Create'
+      a.btn(href='/catalog/enrollments') Cancel
