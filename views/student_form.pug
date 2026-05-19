@@ -12,21 +12,21 @@ block content
   form(method='POST' action='')
     .form-group
       label(for='first_name') First Name:
-      input#first_name(type='text' name='first_name' value=student.first_name required)
+      input#first_name(type='text' name='first_name' value=(student && student.first_name) required)
 
     .form-group
       label(for='last_name') Last Name:
-      input#last_name(type='text' name='last_name' value=student.last_name required)
+      input#last_name(type='text' name='last_name' value=(student && student.last_name) required)
 
     .form-group
       label(for='email') Email:
-      input#email(type='email' name='email' value=student.email required)
+      input#email(type='email' name='email' value=(student && student.email) required)
 
     .form-group
       label(for='date_of_birth') Date of Birth (optional):
       input#date_of_birth(type='date' name='date_of_birth'
-        value=student.date_of_birth ? student.date_of_birth.toISOString().split('T')[0] : '')
+        value=(student && student.date_of_birth ? student.date_of_birth.toISOString().split('T')[0] : ''))
 
     .form-actions
-      button.btn.btn-primary(type='submit')= student._id ? 'Update' : 'Create'
+      button.btn.btn-primary(type='submit')= (student && student._id) ? 'Update' : 'Create'
       a.btn(href='/catalog/students') Cancel
